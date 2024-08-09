@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Interactive Dashboard
 
-## Getting Started
+Welcome to the Interactive Dashboard repository! This project provides an interactive user dashboard built with modern web technologies: Next.js, TypeScript, Tailwind CSS, Shadcn (optional), and Recharts.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Interactive Visualizations:** Display various chart types (Bar, Line, Radial, Radar) to visually represent your data.
+- **Responsive Design:** The application seamlessly adapts to different screen sizes, ensuring optimal user experience on any device.
+- **Advanced User Table (Optional):** Integrate a paginated user table with enhanced UI and functionality for detailed data exploration (implementation details in code).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Next.js (v13+):** A performant React framework for creating server-side rendered web applications with features like routing, static generation, and data fetching.
+- **TypeScript:** A superset of JavaScript that adds static typing for improved code maintainability and reduced runtime errors.
+- **Tailwind CSS (v3+):** A utility-first CSS framework that provides a low-level styling approach, allowing you to quickly build custom user interfaces.
+- **Shadcn (Optional):** An open-source React component library that offers pre-built UI components to speed up your development process. (Add a note about its optional nature)
+- **Recharts (v2+):** A flexible charting library for React that supports various chart types and customization options, enabling you to create visually appealing data representations.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Installation
 
-## Learn More
+**Prerequisites:**
 
-To learn more about Next.js, take a look at the following resources:
+- Node.js (v14+) and npm (v5.6+) installed on your system.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Steps:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. **Clone the Repository:**
 
-## Deploy on Vercel
+   ```bash
+   git clone [https://github.com/belikenoone/user-dahboard.git](https://github.com/belikenoone/user-dahboard.git)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+2. **Navigate to the Project Directory:**
+
+   ```cd user-dashboard
+
+   ```
+
+3. **Install Dependencies::**
+   #### Ensure you have Bun installed. Then, install the project dependencies with:
+   ```bun install
+
+   ```
+4. **4. Run the Development Server**
+   #### Start the development server:
+   ```bun dev
+
+   ```
+
+### Your application will be available at http://localhost:3000
+
+### Usage
+
+    * Home Page: Navigate to the home page to view the interactive dashboard with various charts and user data.
+    * Chart Selection: Use the buttons to switch between different chart types (Bar, Line, Radial, Radar) and visualize the data.
+    * User Table: The user table displays user data with pagination controls for easy navigation through large datasets.
