@@ -10,10 +10,10 @@ Welcome to the Interactive Dashboard repository! This project provides an intera
 
 ## Technologies Used
 
-- **Next.js (v13+):** A performant React framework for creating server-side rendered web applications with features like routing, static generation, and data fetching.
+- **Next.js (v14+):** A performant React framework for creating server-side rendered web applications with features like routing, static generation, and data fetching.
 - **TypeScript:** A superset of JavaScript that adds static typing for improved code maintainability and reduced runtime errors.
 - **Tailwind CSS (v3+):** A utility-first CSS framework that provides a low-level styling approach, allowing you to quickly build custom user interfaces.
-- **Shadcn (Optional):** An open-source React component library that offers pre-built UI components to speed up your development process. (Add a note about its optional nature)
+- **Shadcn :** An open-source React component library that offers pre-built UI components to speed up your development process. (Add a note about its optional nature)
 - **Recharts (v2+):** A flexible charting library for React that supports various chart types and customization options, enabling you to create visually appealing data representations.
 
 ## Installation
@@ -33,18 +33,25 @@ Welcome to the Interactive Dashboard repository! This project provides an intera
 
 2. **Navigate to the Project Directory:**
 
-   ```cd user-dashboard
+   ```bash
+   cd user-dashboard
 
    ```
 
 3. **Install Dependencies::**
+
    #### Ensure you have Bun installed. Then, install the project dependencies with:
-   ```bun install
+
+   ```bash
+   bun install
 
    ```
+
 4. **4. Run the Development Server**
    #### Start the development server:
-   ```bun dev
+   ```bash
+   bun dev
+
 
    ```
 
