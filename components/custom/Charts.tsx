@@ -22,6 +22,78 @@ import {
 } from "recharts";
 import axios from "axios";
 
+interface Coordinates {
+  lat: number;
+  lng: number;
+}
+
+interface Address {
+  address: string;
+  city: string;
+  state: string;
+  stateCode: string;
+  postalCode: string;
+  coordinates: Coordinates;
+  country: string;
+}
+
+interface Hair {
+  color: string;
+  type: string;
+}
+
+interface Bank {
+  cardExpire: string;
+  cardNumber: string;
+  cardType: string;
+  currency: string;
+  iban: string;
+}
+
+interface Company {
+  department: string;
+  name: string;
+  title: string;
+  address: Address;
+}
+
+interface Crypto {
+  coin: string;
+  wallet: string;
+  network: string;
+}
+
+interface User {
+  id: number;
+  firstName: string;
+  lastName: string;
+  maidenName: string;
+  age: number;
+  gender: string;
+  email: string;
+  phone: string;
+  username: string;
+  password: string;
+  birthDate: string;
+  image: string;
+  bloodGroup: string;
+  height: number;
+  weight: number;
+  eyeColor: string;
+  hair: Hair;
+  ip: string;
+  address: Address;
+  macAddress: string;
+  university: string;
+  bank: Bank;
+  company: Company;
+  ein: string;
+  ssn: string;
+  userAgent: string;
+  crypto: Crypto;
+  role: string;
+}
+
 type ChartCategory = {
   value: keyof User;
   label: string;
@@ -43,7 +115,7 @@ const Charts = ({
 }: {
   chartType: "bar" | "line" | "radial" | "radar";
 }) => {
-  const [userData, setUserData] = useState([]);
+  const [userData, setUserData] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -80,13 +152,13 @@ const Charts = ({
     if (loading) return [];
 
     if (selectedCategory.type === "numeric") {
-      return userData.map((user: any) => ({
+      return userData.map((user) => ({
         name: `${user.firstName} ${user.lastName}`,
         value: user[selectedCategory.value] as number,
       }));
     } else {
       const categoryCounts = userData.reduce(
-        (acc: Record<string, number>, user: any) => {
+        (acc: Record<string, number>, user) => {
           const value = user[selectedCategory.value] as string;
           acc[value] = (acc[value] || 0) + 1;
           return acc;
@@ -144,10 +216,10 @@ const Charts = ({
             data={getChartData}
           >
             <RadialBar
-              minAngle={15}
+              // minAngle={15}
               label={{ position: "insideStart", fill: "#fff" }}
               background
-              clockWise
+              // clockWise
               dataKey="value"
             >
               {getChartData.map((entry, index) => (
