@@ -108,7 +108,7 @@ const UsersTable = () => {
         </div>
         <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm text-gray-700">
+            <div className="text-sm text-gray-700">
               {loading ? (
                 <Skeleton className="h-4 w-32" />
               ) : (
@@ -124,7 +124,7 @@ const UsersTable = () => {
                   of <span className="font-medium">{TOTAL_USERS}</span> results
                 </>
               )}
-            </p>
+            </div>
           </div>
           <div>
             <nav

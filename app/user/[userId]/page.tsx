@@ -1,44 +1,42 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { MapPin, Mail, Phone, Briefcase, Building } from "lucide-react";
+import {
+  MapPin,
+  Mail,
+  Phone,
+  Briefcase,
+  Building,
+  AlertCircle,
+  ArrowLeft,
+} from "lucide-react";
 
-interface UserData {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  image: string;
-  address: {
-    street: string;
-    city: string;
-    state: string;
-    postalCode: string;
-  };
-  company: {
-    name: string;
-    title: string;
-  };
-}
+import { User } from "@/types/types";
 
 const UserDetails = () => {
+  const router = useRouter();
   const { userId } = useParams();
-  const [userData, setUserData] = useState<UserData | null>(null);
+  const [userData, setUserData] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(`https://dummyjson.com/users/${userId}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch user data");
+        }
         const data = await response.json();
         setUserData(data);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching user data:", error);
+        setError("No User Found");
+      } finally {
         setLoading(false);
       }
     };
@@ -48,56 +46,82 @@ const UserDetails = () => {
 
   if (loading) {
     return (
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 space-y-8">
         <Skeleton className="h-64 w-full rounded-xl" />
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-          <Skeleton className="h-32 rounded-xl" />
-          <Skeleton className="h-32 rounded-xl" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <Skeleton className="h-40 rounded-xl" />
+          <Skeleton className="h-40 rounded-xl" />
         </div>
+        <Skeleton className="h-40 rounded-xl" />
       </div>
     );
   }
 
-  if (!userData) {
+  if (error || !userData) {
     return (
-      <div className="container mx-auto p-4 text-center text-2xl font-bold text-red-500">
-        User not found
+      <div className="container mx-auto p-4">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => router.back()}
+          className="mb-4"
+        >
+          <ArrowLeft className="mr-2" /> Back
+        </Button>
+        <Card className="bg-red-50 border-red-200">
+          <CardContent className="p-6 flex items-center justify-center">
+            <AlertCircle className="text-red-500 mr-2" size={24} />
+            <p className="text-xl font-semibold text-red-700">
+              {error || "User not found"}
+            </p>
+          </CardContent>
+        </Card>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl shadow-2xl overflow-hidden">
-        <div className="p-8 md:p-16 flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-12">
-          <Avatar className="h-32 w-32 md:h-48 md:w-48 rounded-full border-4 border-white shadow-xl">
-            <AvatarImage
-              src={userData.image}
-              alt={`${userData.firstName} ${userData.lastName}`}
-            />
-            <AvatarFallback className="text-4xl">
-              {userData.firstName[0]}
-              {userData.lastName[0]}
-            </AvatarFallback>
-          </Avatar>
-          <div className="text-center md:text-left">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
-              {userData.firstName} {userData.lastName}
-            </h1>
-            <p className="text-xl text-white opacity-90">
-              {userData.company.title}
-            </p>
-            <p className="text-lg text-white opacity-75">
-              {userData.company.name}
-            </p>
+    <div className="container mx-auto p-4 space-y-8">
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => router.back()}
+        className="mb-4"
+      >
+        <ArrowLeft className="mr-2" /> Back
+      </Button>
+      <Card className="overflow-hidden">
+        <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-8 md:p-16">
+          <div className="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-12">
+            <Avatar className="h-32 w-32 md:h-48 md:w-48 rounded-full border-4 border-white shadow-xl">
+              <AvatarImage
+                src={userData.image}
+                alt={`${userData.firstName} ${userData.lastName}`}
+              />
+              <AvatarFallback className="text-4xl bg-blue-200 text-blue-600">
+                {userData.firstName[0]}
+                {userData.lastName[0]}
+              </AvatarFallback>
+            </Avatar>
+            <div className="text-center md:text-left">
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
+                {userData.firstName} {userData.lastName}
+              </h1>
+              <p className="text-xl text-white opacity-90">
+                {userData.company.title}
+              </p>
+              <p className="text-lg text-white opacity-75">
+                {userData.company.name}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      </Card>
 
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <Card className="shadow-lg">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
           <CardContent className="p-6">
-            <h2 className="text-2xl font-semibold mb-4 flex items-center">
+            <h2 className="text-2xl font-semibold mb-4 flex items-center text-blue-600">
               <Mail className="mr-2" /> Contact Information
             </h2>
             <div className="space-y-3">
@@ -111,24 +135,25 @@ const UserDetails = () => {
           </CardContent>
         </Card>
 
-        <Card className="shadow-lg">
+        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
           <CardContent className="p-6">
-            <h2 className="text-2xl font-semibold mb-4 flex items-center">
+            <h2 className="text-2xl font-semibold mb-4 flex items-center text-blue-600">
               <MapPin className="mr-2" /> Address
             </h2>
             <div className="space-y-3">
               <p className="flex items-center">
-                <span className="mr-2 text-gray-500" /> {userData.address.city},{" "}
-                {userData.address.state} {userData.address.postalCode}
+                <MapPin className="mr-2 text-gray-500" />
+                {userData.address.city}, {userData.address.state}{" "}
+                {userData.address.postalCode}
               </p>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      <Card className="mt-8 shadow-lg">
+      <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
         <CardContent className="p-6">
-          <h2 className="text-2xl font-semibold mb-4 flex items-center">
+          <h2 className="text-2xl font-semibold mb-4 flex items-center text-blue-600">
             <Briefcase className="mr-2" /> Professional Information
           </h2>
           <div className="space-y-3">
